@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>file metadata microservice project</title>
+</head>
+
+<body>
+  <form id="upload-form">
+    <input type="file" name="file">
+    <button type="submit">upload</button>
+  </form>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script>
+
+    $('#upload-form').on('submit', function (e) {
+      e.preventDefault()
+      var formData = new FormData($('#upload-form')[0])
+      $.ajax({
+        url: '/getfilesize',
+        data: formData,
+        type: 'POST',
+        contentType: false,
+        processData: false,
+        success: function (response) {
+          alert("file size: "+response.size)
+        },
+        error: function (error) {
+          alert(error)
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>
